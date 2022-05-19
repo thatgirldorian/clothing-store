@@ -1,5 +1,5 @@
 # clothing-store
- This is a clothing store web application built with Node js. Its web server is created with Express JS and it allows a user:
+ This is a clothing store web application built with Node JS Express JS. The product and user data is stored in JSON format in a data store that was created from scratch (using JavaScript classes and methods). This store application allows a user to:
  - log in
  - add items
  
