@@ -1,5 +1,6 @@
 //require the necessary packages
 const express = require('express');
+const bodyParser = require('body-parser');
 
 const app = express();
 
@@ -19,17 +20,8 @@ app.get('/', (req, res) => {
     `)
 })
 
-app.post('/', (req, res) => {
-    req.on('data', data => {
-        //make the accepted data into an object
-        const parsedInfo = data.toString('utf8').split('&')
-        const formData = {}
-        for (let pair of parsedInfo) {
-            const [key, value] = pair.split('=')
-            formData[key] = value
-        }
-        console.log(formData);
-    })
+
+app.post('/', bodyParser.urlencoded({ extended: true }), (req, res) => {
     res.send('Account created!')
 })
 
