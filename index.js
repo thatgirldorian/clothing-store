@@ -2,25 +2,33 @@
 const express = require('express');
 
 const app = express();
+
 const port = 3000
 
 //layout the routes for the application
 app.get('/', (req, res) => {
     res.send(`
-    <div>
-    <form method="post" action='/'>
-        <input name="email" placeholder="Your email">
-        <input name="password" placeholder="A password">
-        <input name="confirmPassword" placeholder="Confirm password">
-        <button type="button">Sign up</button>
-    </form>
-</div>
+            <div>
+            <form method="POST">
+                <input name="email" placeholder="Your email" />
+                <input name="password" placeholder="A password" />
+                <input name="confirmPassword" placeholder="Confirm password" />
+                <button>Sign up</button>
+            </form>
+        </div>
     `)
 })
 
 app.post('/', (req, res) => {
     req.on('data', data => {
-        console.log(data)
+        //make the accepted data into an object
+        const parsedInfo = data.toString('utf8').split('&')
+        const formData = {}
+        for (let pair of parsedInfo) {
+            const [key, value] = pair.split('=')
+            formData[key] = value
+        }
+        console.log(formData);
     })
     res.send('Account created!')
 })
