@@ -1,9 +1,14 @@
 //create a class that'll allow us store user data
 class usersRepository {
-    constructor(length, user) {
-        this.length = length;
-        this.user = user;
+    constructor(filename) {
+        if (!filename) {
+            throw new Error("Sorry! You have to provide a filename.");
+        }
+
+        
+        this.filename = filename;
     }
 
-    methods
 }
+
+new usersRepository()
