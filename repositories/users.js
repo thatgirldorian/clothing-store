@@ -61,13 +61,29 @@ class usersRepository {
         await this.writeAll(filteredRecords)
     }
 
+    //this method will update a user record
+    async update(id, attributes) {
+        const records = await this.getAll()
+        const record = records.find(record => record.id == id)
+
+        //handle an error here
+        if (!record) {
+            throw new Error(`The record with an ID: ${id} was not found`)
+        }
+
+        //update the properties
+        Object.assign(record, attributes)
+        await this.writeAll(records)
+
+    }
+
 }
 
 const test = async () => {
     const repo = new usersRepository('users.json')
 
     //quick test with the create method
-    await repo.delete('9dcdc62214')
+    await repo.update('d1aa8632cd', {last_name: 'Baloda'})
 
 }
 
