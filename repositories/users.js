@@ -1,6 +1,7 @@
 //require the fs module
-const { use } = require('express/lib/application');
-const fs = require('fs')
+// const { use } = require('express/lib/application');
+// const fs = require('fs')
+const crypto = require('crypto')
 
 //create a class that'll allow us store user data
 class usersRepository {
@@ -20,14 +21,15 @@ class usersRepository {
         }
     }
 
-    //implement methods for database usage
+    //this method gets a list of all users
     async getAll() {
         //open the file called this.filename and read its contents and return the parsed data
         return JSON.parse(await fs.promises.readFile(this.filename, { encoding: 'utf8'}))
     }
 
-    //create a method to save user data in an object
+    //this method creates a new set of user records
     async create(attributes) {
+        attributes.id = this.randomId()
         //load the content of the file
         const records = await this.getAll();
         records.push(attributes)
@@ -36,15 +38,18 @@ class usersRepository {
         await this.writeAll(records)
     }
 
-    //another method that will format our records
+    //this method writes/saves all users to the users.json file
     async writeAll(records) {
         await fs.promises.writeFile(this.filename,
             JSON.stringify(records, null, 2))
     }
 
+    //this method generates a random identifier
+    randomId() {
+        return crypto.randomBytes(5).toString('hex')
 }
 
-const test = async() => {
+const test = async () => {
     const repo = new usersRepository('users.json')
 
     //quick test with the create method
@@ -56,5 +61,3 @@ const test = async() => {
 }
 
 test()
-
-
