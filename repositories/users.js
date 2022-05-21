@@ -77,13 +77,40 @@ class usersRepository {
 
     }
 
+    //this method will get the first record that matches the filter given
+    async getOneBy(filters) {
+        const records = await this.getAll()
+
+        for (let record of records) {
+            let found = true
+
+            for (let key in filters) {
+                if (record[key] !== filters[key]) {
+                    found = false
+                }
+            }
+
+            if (found === true) {
+                return record
+            }
+        }
+
+    }
+
+
+
 }
 
 const test = async () => {
     const repo = new usersRepository('users.json')
 
     //quick test with the create method
-    await repo.update('d1aa8632cd', {last_name: 'Baloda'})
+    const user = await repo.getOneBy({
+        id: 'd1aa8632cd',
+        email: 'b.uikh@hey.com'
+    })
+
+    console.log(user)
 
 }
 
