@@ -33,10 +33,14 @@ class usersRepository {
         records.push(attributes)
 
         //add the updated records to our records array
-        await fs.promises.writeFile(this.filename, JSON.stringify(records))
+        await this.writeAll(records)
     }
 
     //another method that will format our records
+    async writeAll(records) {
+        await fs.promises.writeFile(this.filename,
+            JSON.stringify(records, null, 2))
+    }
 
 }
 
