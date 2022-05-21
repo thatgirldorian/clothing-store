@@ -1,6 +1,5 @@
 //require the fs module
-// const { use } = require('express/lib/application');
-// const fs = require('fs')
+const fs = require('fs')
 const crypto = require('crypto')
 
 //create a class that'll allow us store user data
@@ -49,15 +48,27 @@ class usersRepository {
         return crypto.randomBytes(5).toString('hex')
 }
 
+    //this method retrieves one user record
+    async getOne(id) {
+        const records = await this.getAll()
+        return records.find(record => record.id === id)
+    }
+
+    //this method will let us delete a user record
+    async delete(id) {
+        const records = await this.getAll()
+        const filteredRecords = records.filter(record => record.id != id)
+        await this.writeAll(filteredRecords)
+    }
+
+}
+
 const test = async () => {
     const repo = new usersRepository('users.json')
 
     //quick test with the create method
-    await repo.create({ email: 'heyya@gmail.com', password: 'asgdvydva'})
+    await repo.delete('9dcdc62214')
 
-    const users = await repo.getAll()
-
-    console.log(users)
 }
 
 test()
