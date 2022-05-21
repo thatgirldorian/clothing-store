@@ -1,4 +1,5 @@
 //require the fs module
+const { use } = require('express/lib/application');
 const fs = require('fs')
 
 //create a class that'll allow us store user data
@@ -13,26 +14,43 @@ class usersRepository {
         //check to see if a file exists
         try {
             fs.accessSync(this.filename)
-        } catch (error) {
+        } catch (err) {
             //create file it it doesn't exist
             fs.writeFileSync(this.filename, '[]')
-
         }
     }
 
     //implement methods for database usage
     async getAll() {
-        //open the file called this.filename
-        const contents = await fs.promises.readFile(this.filename, { encoding: 'utf8'})
-
-        //Read the contents of the file
-        fsPromise = fs.open(this.filename)
-        //Parse the contents
-
-        //Return the parsed data 
-
+        //open the file called this.filename and read its contents and return the parsed data
+        return JSON.parse(await fs.promises.readFile(this.filename, { encoding: 'utf8'}))
     }
+
+    //create a method to save user data in an object
+    async create(attributes) {
+        //load the content of the file
+        const records = await this.getAll();
+        records.push(attributes)
+
+        //add the updated records to our records array
+        await fs.promises.writeFile(this.filename, JSON.stringify(records))
+    }
+
+    //another method that will format our records
 
 }
 
-const repo = new usersRepository('users.json')
+const test = async() => {
+    const repo = new usersRepository('users.json')
+
+    //quick test with the create method
+    await repo.create({ email: 'heyya@gmail.com', password: 'asgdvydva'})
+
+    const users = await repo.getAll()
+
+    console.log(users)
+}
+
+test()
+
+
