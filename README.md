@@ -1,5 +1,8 @@
 # clothing-store
- This is a clothing store web application built with Node JS Express JS. The product and user data is stored in JSON format in a data store that was created from scratch (using JavaScript classes and methods). This store application allows an admin user to:
+ This is a clothing store web application built with Node JS Express JS. The product and user data is stored in JSON format in a data store that was created from scratch (using JavaScript classes and methods). It also runs on cookie-based authenticaltion that is managed by the npm package, cookie-session. 
+ 
+ 
+ This store application allows an admin user to:
  - sign up and log in
  - add, update and delete items
  - 
