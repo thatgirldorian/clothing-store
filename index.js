@@ -18,9 +18,10 @@ const port = 3000
 
 
 //layout the routes for the application
-app.get('/', (req, res) => {
+app.get('/signup', (req, res) => {
     res.send(`
             <div>
+            Your ID is ${req.session.userId}
             <form method="POST">
                 <input name="email" placeholder="Your email" />
                 <input name="password" placeholder="A password" />
@@ -31,8 +32,12 @@ app.get('/', (req, res) => {
     `)
 })
 
+app.get('/login', (req, res) => {
 
-app.post('/', async (req, res) => {
+})
+
+
+app.post('/signup', async (req, res) => {
     //do the signup validation logic 
     const { email, password, confirmPassword } = req.body 
 
@@ -52,8 +57,13 @@ app.post('/', async (req, res) => {
     //store the user's id inside the users cookie via cookie-session
     req.session.userId = user.id
 
-
     res.send('Account created!')
+})
+
+
+app.get('/signout', (req, res) => {
+    req.session = null
+    req.send('You are now logged out.')
 })
 
 
