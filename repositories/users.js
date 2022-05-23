@@ -34,6 +34,8 @@ class usersRepository {
 
         //add the updated records to our records array
         await this.writeAll(records)
+
+        return attributes
     }
 
     //this method writes/saves all users to the users.json file

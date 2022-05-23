@@ -1,12 +1,17 @@
 //require the necessary packages + database
 const express = require('express');
 const bodyParser = require('body-parser');
+const cookieSession = require('cookie-session');
 const usersRepo = require('./repositories/users');
+
 
 const app = express();
 
-//make our body parser reusable anywhere in our application
+//make our body parser & cookie session packages reusable anywhere in our application
 app.use(bodyParser.urlencoded({ extended: true }))
+app.use(cookieSession({ 
+    keys: ['vhvhvvahgcvagcvka7767']
+}))
 
 
 const port = 3000
@@ -41,6 +46,12 @@ app.post('/', async (req, res) => {
     if (password !== confirmPassword) {
         return res.send(`Error: Passwords must match.`)
     }
+
+    //use cookie-based auth in our app by creating a user to represent each person
+    const user = await usersRepo.create({ email, password })
+    //store the user's id inside the users cookie via cookie-session
+    req.session.userId = user.id
+
 
     res.send('Account created!')
 })
