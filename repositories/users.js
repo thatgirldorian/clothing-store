@@ -8,13 +8,12 @@ class usersRepository {
         if (!filename) {
             throw new Error("Sorry! You have to provide a filename.");
         }
-
         
         this.filename = filename;
         //check to see if a file exists
         try {
             fs.accessSync(this.filename)
-        } catch (err) {
+        } catch (e) {
             //create file it it doesn't exist
             fs.writeFileSync(this.filename, '[]')
         }
@@ -89,29 +88,13 @@ class usersRepository {
                     found = false
                 }
             }
-
             if (found === true) {
                 return record
             }
         }
-
     }
-
-
-
 }
 
-const test = async () => {
-    const repo = new usersRepository('users.json')
+//make code available to other files in our application by exporting an instance of our class
+module.exports = new usersRepository('users.json');
 
-    //quick test with the create method
-    const user = await repo.getOneBy({
-        id: 'd1aa8632cd',
-        email: 'b.uikh@hey.com'
-    })
-
-    console.log(user)
-
-}
-
-test()

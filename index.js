@@ -25,7 +25,6 @@ app.get('/', (req, res) => {
     `)
 })
 
-const parseData = bodyParser.urlencoded({ extended: true })
 
 app.post('/', (req, res) => {
     //use body-parser to parse and render form data
