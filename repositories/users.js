@@ -13,7 +13,7 @@ class usersRepository {
         //check to see if a file exists
         try {
             fs.accessSync(this.filename)
-        } catch (e) {
+        } catch (error) {
             //create file it it doesn't exist
             fs.writeFileSync(this.filename, '[]')
         }
@@ -97,4 +97,3 @@ class usersRepository {
 
 //make code available to other files in our application by exporting an instance of our class
 module.exports = new usersRepository('users.json');
-

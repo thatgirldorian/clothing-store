@@ -1,6 +1,7 @@
-//require the necessary packages
+//require the necessary packages + database
 const express = require('express');
 const bodyParser = require('body-parser');
+const usersRepo = require('./repositories/users');
 
 const app = express();
 
@@ -26,9 +27,21 @@ app.get('/', (req, res) => {
 })
 
 
-app.post('/', (req, res) => {
-    //use body-parser to parse and render form data
-    console.log(req.body)
+app.post('/', async (req, res) => {
+    //do the signup validation logic 
+    const { email, password, confirmPassword } = req.body 
+
+    //check if someone has signed already signed up with a given email
+    const existingUser = await usersRepo.getOneBy({ email })
+    if (existingUser) {
+        return res.send(`Error: Already signed up with ${email}.`)
+    }
+
+    //check if passwords match 
+    if (password !== confirmPassword) {
+        return res.send(`Error: Passwords must match.`)
+    }
+
     res.send('Account created!')
 })
 
