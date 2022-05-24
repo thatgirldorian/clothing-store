@@ -1,23 +1,15 @@
 //require important files
 const express = require('express')
 const usersRepo = require('../../repositories/users')
+const signupTemplate = require('../../views/admin/auth/signup')
+const loginTemplate = require('../../views/admin/auth/login')
 
 //create a sub-router
 const router = express.Router()
 
 //layout the routes for the application
 router.get('/signup', (req, res) => {
-    res.send(`
-            <div>
-            Your ID is ${req.session.userId}
-            <form method="POST">
-                <input name="email" placeholder="Your email" />
-                <input name="password" placeholder="A password" />
-                <input name="confirmPassword" placeholder="Confirm password" />
-                <button>Sign up</button>
-            </form>
-        </div>
-    `)
+    res.send(signupTemplate({ req }))
 })
 
 
@@ -51,16 +43,7 @@ router.get('/logout', (req, res) => {
 })
 
 router.get('/login', (req, res) => {
-    res.send(`
-    <div>
-    You're now signed in and your ID is ${req.session.userId}.
-    <form method="POST">
-        <input name="email" placeholder="Your email" />
-        <input name="password" placeholder="A password" />
-        <button>Log in</button>
-    </form>
-</div>
-    `)
+    res.send(loginTemplate({req}))
 })
 
 router.post('/login', async (req, res) => {
