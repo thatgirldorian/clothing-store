@@ -57,7 +57,7 @@ app.post('/signup', async (req, res) => {
 })
 
 
-app.get('/signout', (req, res) => {
+app.get('/logout', (req, res) => {
     req.session = null
     res.send('You are now logged out.')
 })
@@ -83,8 +83,13 @@ app.post('/login', async (req, res) => {
         return res.send(`Error: Email not found.`)
     }
 
+    const validPassword = await usersRepo.comparePasswords(
+        savedUser.password, 
+        password
+    )
+
     //check if passwords match 
-    if (savedUser.password !== password) {
+    if (!validPassword) {
         return res.send(`Error: Invalid password.`)
     }
 
@@ -93,7 +98,7 @@ app.post('/login', async (req, res) => {
     //store the user's id inside the users cookie via cookie-session
     req.session.userId = user.id
 
-    res.send("You're signed in successfully!")
+    res.send("You're logged in successfully!")
 })
 
 //have the application listen to requests
