@@ -8,7 +8,7 @@ const getError = (errors, prop) => {
         return ''
 }
 }
-    //prop hee === "email" or password or ps confirmation error
+    //prop here === "email" or password or ps confirmation error
 
 //create a function that handles HTML template creation
 module.exports = ({ req, errors }) => {

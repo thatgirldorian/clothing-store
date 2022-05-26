@@ -1,6 +1,15 @@
 //require out layout for creating reusable content/templates
 const layout = require('../layout');
 
+//  //add a function to get errors from validation
+// const getError = (errors, prop) => {
+//     try {
+//         return errors.mapped()[prop].msg
+//     } catch (err) {
+//         return ''
+// }
+// }
+
 module.exports = ({ req }) => { 
     return layout({ 
     content: `
@@ -8,7 +17,9 @@ module.exports = ({ req }) => {
         You're now logged in and your ID is ${req.session.userId}.
         <form method="POST">
             <input name="email" placeholder="Your email" />
+            
             <input name="password" placeholder="A password" />
+            
             <button>Log in</button>
         </form>
     </div>  

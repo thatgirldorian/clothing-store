@@ -6,7 +6,7 @@ const signupTemplate = require('../../views/admin/auth/signup')
 const loginTemplate = require('../../views/admin/auth/login')
 
 //require in validation
-const { requireEmail, requirePassword, requirePasswordConfirmation } = require('./validators')
+const { requireEmail, requirePassword, requirePasswordConfirmation, requireValidEmail, requireValidPassword } = require('./validators')
 
 
 //create a sub-router
@@ -53,26 +53,18 @@ router.get('/login', (req, res) => {
     res.send(loginTemplate({req}))
 })
 
-router.post('/login', async (req, res) => {
-    const { email, password} = req.body
+router.post('/login', [
+    requireValidEmail, requireValidPassword
+],
+    async (req, res) => {
+        //pass back the validation results
+    const errors = validationResult(req)
+    console.log(errors)
 
-    const savedUser = await usersRepo.getOneBy({ email })
-    if (!savedUser) {
-        return res.send(`Error: Email not found.`)
-    }
-
-    const validPassword = await usersRepo.comparePasswords(
-        savedUser.password, 
-        password
-    )
-
-    //check if passwords match 
-    if (!validPassword) {
-        return res.send(`Error: Invalid password.`)
-    }
+    const { email} = req.body
 
     //use cookie-based auth in our app by creating a user to represent each person
-    const user = await usersRepo.create({ email, password })
+    const user = await usersRepo.getOneBy({ email })
     //store the user's id inside the users cookie via cookie-session
     req.session.userId = user.id
 

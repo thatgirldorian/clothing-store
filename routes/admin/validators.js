@@ -3,7 +3,7 @@ const usersRepo = require('../../repositories/users');
 
 //export our validation from auth.js
 module.exports = {
-    requireEmail: check('email').trim().normalizeEmail().isEmail().withMessage('Please enter a valid email').custom(async email => {
+    requireSignEmail: check('email').trim().normalizeEmail().isEmail().withMessage('Please enter a valid email').custom(async email => {
         //check if someone has signed already signed up with a given email
         const existingUser = await usersRepo.getOneBy({ email })
         if (existingUser) {
@@ -14,6 +14,27 @@ module.exports = {
     requirePasswordConfirmation: check('confirmPassword').trim().isLength({ min: 4, max: 20 }).withMessage('Please enter a password between 4 and 20 characters').custom((confirmPassword, { req }) => {
         if (confirmPassword !== req.body.password) {
             throw new Error('Passwords must match')
+        }
+    }),
+    requireValidEmail: check('email').trim().normalizeEmail().isEmail().withMessage('Please enter a valid email').custom(async (email) => {
+    const savedUser = await usersRepo.getOneBy({ email })
+    if (!savedUser) {
+    throw new Error('Email not found.')
+}
+}),
+    requireValidPassword: check('password').trim().custom(async (password, {req}) => {
+        const savedUser = await usersRepo.getOneBy({ email: req.body.email })
+        //handle the case where a user doesn't exist
+        if (!savedUser) {
+            throw new Error('Invalid password')
+        }
+        const validPassword = await usersRepo.comparePasswords(
+            savedUser.password, 
+            password
+        )
+        //check if passwords match 
+        if (!validPassword) {
+            throw new Error('Invalid password.')
         }
     })
 }
