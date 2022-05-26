@@ -1,8 +1,13 @@
 //require important files
 const express = require('express')
+const { check, validationResult } = require('express-validator')
 const usersRepo = require('../../repositories/users')
 const signupTemplate = require('../../views/admin/auth/signup')
 const loginTemplate = require('../../views/admin/auth/login')
+
+//require in validation
+const { requireEmail, requirePassword, requirePasswordConfirmation } = require('./validators')
+
 
 //create a sub-router
 const router = express.Router()
@@ -13,20 +18,19 @@ router.get('/signup', (req, res) => {
 })
 
 
-router.post('/signup', async (req, res) => {
+router.post('/signup', [
+    //use express-validator to sanitize & validate sign-ups
+    requireEmail, 
+    requirePassword, 
+    requirePasswordConfirmation
+], 
+    async (req, res) => {
+    //pass back the validation results
+    const errors = validationResult(req)
+    console.log(errors)
+
     //do the signup validation logic 
     const { email, password, confirmPassword } = req.body 
-
-    //check if someone has signed already signed up with a given email
-    const existingUser = await usersRepo.getOneBy({ email })
-    if (existingUser) {
-        return res.send(`Error: Already signed up with ${email}.`)
-    }
-
-    //check if passwords match 
-    if (password !== confirmPassword) {
-        return res.send(`Error: Passwords must match.`)
-    }
 
     //use cookie-based auth in our app by creating a user to represent each person
     const user = await usersRepo.create({ email, password })
