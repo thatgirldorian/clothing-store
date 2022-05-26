@@ -3,7 +3,7 @@ const usersRepo = require('../../repositories/users');
 
 //export our validation from auth.js
 module.exports = {
-    requireSignEmail: check('email').trim().normalizeEmail().isEmail().withMessage('Please enter a valid email').custom(async email => {
+    requireEmail: check('email').trim().normalizeEmail().isEmail().withMessage('Please enter a valid email').custom(async email => {
         //check if someone has signed already signed up with a given email
         const existingUser = await usersRepo.getOneBy({ email })
         if (existingUser) {
@@ -17,9 +17,9 @@ module.exports = {
         }
     }),
     requireValidEmail: check('email').trim().normalizeEmail().isEmail().withMessage('Please enter a valid email').custom(async (email) => {
-    const savedUser = await usersRepo.getOneBy({ email })
-    if (!savedUser) {
-    throw new Error('Email not found.')
+        const savedUser = await usersRepo.getOneBy({ email })
+        if (!savedUser) {
+        throw new Error('Email not found.')
 }
 }),
     requireValidPassword: check('password').trim().custom(async (password, {req}) => {

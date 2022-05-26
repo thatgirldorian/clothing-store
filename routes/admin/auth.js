@@ -17,13 +17,11 @@ router.get('/signup', (req, res) => {
     res.send(signupTemplate({ req }))
 })
 
-
 router.post('/signup', [
     //use express-validator to sanitize & validate sign-ups
     requireEmail, 
     requirePassword, 
-    requirePasswordConfirmation
-], 
+    requirePasswordConfirmation ], 
     async (req, res) => {
     //pass back the validation results
     const errors = validationResult(req)
@@ -50,7 +48,7 @@ router.get('/logout', (req, res) => {
 })
 
 router.get('/login', (req, res) => {
-    res.send(loginTemplate({req}))
+    res.send(loginTemplate({}))
 })
 
 router.post('/login', [
@@ -59,7 +57,10 @@ router.post('/login', [
     async (req, res) => {
         //pass back the validation results
     const errors = validationResult(req)
-    console.log(errors)
+
+    if (!errors.isEmpty()) {
+        return res.send(loginTemplate({ errors }))
+    }
 
     const { email} = req.body
 
