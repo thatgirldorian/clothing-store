@@ -1,5 +1,6 @@
 //require the expresss package
 const express = require('express')
+const productsRepo = require('../../repositories/products')
 
 
 //create a new router for our products

@@ -9,7 +9,7 @@ const Repository = require('./repository')
 const scrypt = util.promisify(crypto.scrypt)
 
 //create a class that'll allow us store user data
-class usersRepositor extends Repository {
+class usersRepository extends Repository {
     //this method creates a new set of user records
     async create(attributes) {
         attributes.id = this.randomId()
