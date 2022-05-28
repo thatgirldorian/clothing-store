@@ -13,6 +13,5 @@ module.exports = {
                 //if we don't have any errors
                 next()
             }
-
     }
 }

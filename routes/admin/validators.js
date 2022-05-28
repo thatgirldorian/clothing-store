@@ -1,6 +1,6 @@
 const { check } = require('express-validator');
 const usersRepo = require('../../repositories/users');
-const productsRepo = require('../../repositories/products');
+
 
 //export our validation from auth.js
 module.exports = {
@@ -16,12 +16,19 @@ module.exports = {
         }
     }),
 
-    requirePassword: check('password').trim().isLength({ min: 4, max: 20 }).withMessage('Please enter a password between 4 and 20 characters'),
-    requirePasswordConfirmation: check('confirmPassword').trim().isLength({ min: 4, max: 20 }).withMessage('Please enter a password between 4 and 20 characters').custom((confirmPassword, { req }) => {
+        requirePassword: check('password')
+        .trim()
+        .isLength({ min: 4, max: 20 })
+        .withMessage('Must be between 4 and 20 characters'),
+    requirePasswordConfirmation: check('passwordConfirmation')
+        .trim()
+        .isLength({ min: 4, max: 20 })
+        .withMessage('Must be between 4 and 20 characters')
+        .custom(async (confirmPassword, { req }) => {
         if (confirmPassword !== req.body.password) {
-            throw new Error('Passwords must match')
+            throw new Error('Passwords must match');
         }
-    }),
+        }),
 
     requireValidEmail: check('email').trim().normalizeEmail().isEmail().withMessage('Please enter a valid email').custom(async (email) => {
         const savedUser = await usersRepo.getOneBy({ email })

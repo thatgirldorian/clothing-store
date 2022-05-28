@@ -10,6 +10,17 @@ const scrypt = util.promisify(crypto.scrypt)
 
 //create a class that'll allow us store user data
 class usersRepository extends Repository {
+ //this method compares the hashed+salted passwords
+    async comparePasswords(saved, supplied) {
+        //saved password = password saved in our user records
+        //supplied password = password given by user at login
+        const [hashed, salt] = saved.split('.')
+        const hashedSupplied = await scrypt(supplied, salt, 64)
+
+        return hashed === hashedSupplied.toString('hex')
+    }
+
+
     //this method creates a new set of user records
     async create(attributes) {
         attributes.id = this.randomId()
@@ -31,17 +42,6 @@ class usersRepository extends Repository {
 
         return record
     }
-
-    //this method compares the hashed+salted passwords
-    async comparePasswords(saved, supplied) {
-        //saved password = password saved in our user records
-        //supplied password = password given by user at login
-        const [hashed, salt] = saved.split('.')
-        const hashedSupplied = await scrypt(supplied, salt, 64)
-
-        return hashed === hashedSupplied.toString('hex')
-    }
-
 
 }
 
