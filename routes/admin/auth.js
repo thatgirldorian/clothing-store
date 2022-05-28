@@ -1,6 +1,6 @@
 //require important files
 const express = require('express')
-const { check, validationResult } = require('express-validator')
+const { handleErrors } = require('./middlewares')
 const usersRepo = require('../../repositories/users')
 const signupTemplate = require('../../views/admin/auth/signup')
 const loginTemplate = require('../../views/admin/auth/login')
@@ -22,14 +22,8 @@ router.post('/signup', [
     requireEmail, 
     requirePassword, 
     requirePasswordConfirmation ], 
+    handleErrors(signupTemplate),
     async (req, res) => {
-    //pass back the validation results
-    const errors = validationResult(req)
-    //check if errors occurred
-    if (!errors.isEmpty()) {
-        return res.send(signupTemplate({req, errors}))
-    }
-
     //do the signup validation logic 
     const { email, password, confirmPassword } = req.body 
 
@@ -54,16 +48,10 @@ router.get('/login', (req, res) => {
 router.post('/login', [
     requireValidEmail, requireValidPassword
 ],
+    handleErrors(loginTemplate),
     async (req, res) => {
-        //pass back the validation results
-    const errors = validationResult(req)
-
-    if (!errors.isEmpty()) {
-        return res.send(loginTemplate({ errors }))
-    }
 
     const { email} = req.body
-
     //use cookie-based auth in our app by creating a user to represent each person
     const user = await usersRepo.getOneBy({ email })
     //store the user's id inside the users cookie via cookie-session
