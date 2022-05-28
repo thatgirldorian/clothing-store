@@ -4,9 +4,9 @@
 I used the package, Express-validator for form validation (email & password).
  
  This store application allows an admin user to:
- - sign up and log in
- - add, update and delete items
- - 
+ - sign up, log in and log out
+ - create, update and delete products
+ 
  
  <h3>Issues faced & resolution:</h3>
 
@@ -20,7 +20,7 @@ I used the package, Express-validator for form validation (email & password).
 - Netlify
 - Express JS
 - The Express-validator package
-- " Cookie-session package
+- The Cookie-session package
 - Bulma CSS
 
 <h3>Link to site:</h3>
