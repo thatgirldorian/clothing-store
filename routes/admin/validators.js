@@ -4,7 +4,7 @@ const productsRepo = require('../../repositories/products');
 
 //export our validation from auth.js
 module.exports = {
-    requireTitle: check('title').trim().isLength({ min: 5, max: 40 }).withMessage('Please enter a valid title'),
+    requireTitle: check('title').trim().isLength({ min: 5, max: 40 }).withMessage('Title must be between 5 and 40 characters.'),
 
     requirePrice: check('price').trim().toFloat().isFloat({ min: 1 }).withMessage('Please enter a valid price'),
 
