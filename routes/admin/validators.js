@@ -21,7 +21,7 @@ module.exports = {
         .isLength({ min: 4, max: 20 })
         .withMessage('Must be between 4 and 20 characters'),
 
-    requirePasswordConfirmation: check('confirmPassword')
+    requirePasswordConfirmation: check('passwordConfirmation')
         .trim()
         .isLength({ min: 4, max: 20 })
         .withMessage('Must be between 4 and 20 characters')

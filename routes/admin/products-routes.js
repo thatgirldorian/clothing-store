@@ -5,6 +5,7 @@ const { handleErrors, requireAuth } = require('./middlewares')
 const productsRepo = require('../../repositories/products')
 const newProductTemplate = require('../../views/admin/products/new-product')
 const allProductsTemplate = require('../../views/admin/products/products-index')
+const editProductTemplate = require('../../views/admin/products/edit-product')
 const { requireTitle, requirePrice } = require('./validators')
 
 
@@ -36,6 +37,24 @@ router.post('/admin/products/new', requireAuth, upload.single('image'),
         await productsRepo.create({ title,price, image })
         
         res.send('Product added successfully!')
+})
+
+//this route will get a specific product by ID
+router.get('/admin/products/:id/edit', requireAuth, async (req, res) => {
+    const product = await productsRepo.getOne(req.params.id)
+
+    //error handling for when a product does not exist
+    if (!product) {
+        return res.send('Product not found')
+    }
+
+    //render a product when found
+    res.send(editProductTemplate({product}))
+})
+
+//this route will post an updated product
+router.post('/admin/products/:id/edit', requireAuth, async (req, res) => {
+    
 })
 
 
