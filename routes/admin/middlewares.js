@@ -13,5 +13,14 @@ module.exports = {
                 //if we don't have any errors
                 next()
             }
+    },
+
+    //add another middleware function to disallow non-users 
+    requireAuth(req, res, next) {
+        //disallow non-users from seeing this route 
+    if (!req.session.userId) {
+        return res.redirect('/login')
+    }
+    next()
     }
 }
