@@ -19,9 +19,10 @@ I used the package, Express-validator for form validation (email & password).
 - GitHub
 - Netlify
 - Express JS
-- The Express-validator package
-- The Cookie-session package
+- The Express-validator package (for validation)
+- The Cookie-session package (for cookie-based authentication)
 - Bulma CSS
+- The Multer package (for handling file uploads)
 
 <h3>Link to site:</h3>
 
