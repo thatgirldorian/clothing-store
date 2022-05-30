@@ -40,7 +40,8 @@ router.post('/admin/products/new', requireAuth, upload.single('image'),
 })
 
 //this route will get a specific product by ID
-router.get('/admin/products/:id/edit', requireAuth, async (req, res) => {
+router.get('/admin/products/:id/edit', requireAuth,
+    async (req, res) => {
     const product = await productsRepo.getOne(req.params.id)
 
     //error handling for when a product does not exist
@@ -53,10 +54,35 @@ router.get('/admin/products/:id/edit', requireAuth, async (req, res) => {
 })
 
 //this route will post an updated product
-router.post('/admin/products/:id/edit', requireAuth, async (req, res) => {
-    
+router.post('/admin/products/:id/edit', requireAuth, upload.single('image'),
+    [requireTitle, requirePrice],
+    handleErrors(editProductTemplate, async (req) => {
+        const product = await productsRepo.getOne(req.params.id)
+        return { product }
+    }),
+    async (req, res) => {
+        //this represents changes from the edit form
+        const changes = req.body
+
+        if (req.file) {
+            changes.image = req.file.buffer.toString('base64')
+        }
+
+        try {
+            await productsRepo.update(req.params.id, changes)
+        } catch (err) {
+            return res.send('Could not find item')
+        }
+
+        res.redirect('/admin/products')
 })
 
+//this router will delete a product
+router.post('/admin/products/:id/delete', requireAuth, async (req,res) => {
+    await productsRepo.delete(req.params.id)
+
+    res.redirect('/admin/products')
+})
 
 
 module.exports = router
