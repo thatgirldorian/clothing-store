@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
 const authRouter = require('./routes/admin/auth');
 const productsRouter = require('./routes/admin/products-routes');
+const productsUIRouter = require('./routes/products-ui')
 
 const app = express();
 
@@ -17,6 +18,7 @@ app.use(cookieSession({
 }))
 app.use(authRouter)
 app.use(productsRouter)
+app.use(productsUIRouter)
 //use the sub-routers we created above
 
 
