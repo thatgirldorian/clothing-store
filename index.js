@@ -5,6 +5,7 @@ const cookieSession = require('cookie-session');
 const authRouter = require('./routes/admin/auth');
 const productsRouter = require('./routes/admin/products-routes');
 const productsUIRouter = require('./routes/products-ui')
+const cartsRouter = require('./routes/carts-routes')
 
 const app = express();
 
@@ -19,6 +20,7 @@ app.use(cookieSession({
 app.use(authRouter)
 app.use(productsRouter)
 app.use(productsUIRouter)
+app.use(cartsRouter)
 //use the sub-routers we created above
 
 
