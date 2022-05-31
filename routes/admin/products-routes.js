@@ -36,7 +36,7 @@ router.post('/admin/products/new', requireAuth, upload.single('image'),
         const { title, price } = req.body
         await productsRepo.create({ title,price, image })
         
-        res.send('Product added successfully!')
+        res.redirect('/admin/products')
 })
 
 //this route will get a specific product by ID

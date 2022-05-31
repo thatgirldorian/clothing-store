@@ -1,9 +1,23 @@
     body {
-        --primary: #631d76;
+        --primary: #FF4949;
         --secondary: #9e4770;
         --white: #fbfbfb;
         --dark: #2e2532;
         --black: #201a23;
+    }
+
+    p {
+        color: black;
+        text-decoration: underline;
+        text-decoration-color: #FF4949;
+        margin-top: 40px;
+        font-size: 16px;
+        font-weight: bold;
+        text-decoration-thickness: 3px;
+    }
+
+    .shop-title {
+        padding-top: 20px;
     }
     
     .navbar ul.social {
@@ -56,6 +70,14 @@
     #cart .cart-item {
         margin-bottom: 10px;
         padding: 20px;
+    }
+
+    .card-content h3, h5 {
+        text-align: center;
+    }
+
+    .button.has-icon {
+        color: #541690;
     }
     
     .product-card .card-footer {

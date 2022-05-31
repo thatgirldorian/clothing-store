@@ -1,6 +1,8 @@
 //require all the necessary files and dependencies
 const express = require('express')
 const cartsRepo = require('../repositories/carts')
+const productsRepo = require('../repositories/products')
+const showCartTemplate = require('../views/carts/show-cart')
 
 const router = express.Router()
 
@@ -35,8 +37,22 @@ router.post('/cart/products', async(req, res) => {
 })
 
 //this route will render the shopping cart and all the items in it via a get request
-router.get('/cart', (req, res) => {
+router.get('/cart', async(req, res) => {
+    //redirect user when they don't have a cart
+    if (!req.session.cartId) {
+        return res.redirect('/')
+    }
 
+    //if they do have a cart, display it
+    const cart = await cartsRepo.getOne(req.session.cartId)
+
+    for (let item of cart.items) {
+        const product = await productsRepo.getOne(item.id)
+
+        item.product = product
+    }
+
+    res.send(showCartTemplate({ items: cart.items}))
 })
 
 //this route will dd a delete button to the cart and remove items via a post request

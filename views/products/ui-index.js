@@ -41,7 +41,7 @@ module.exports = ({ products }) => {
                 <div class="column "></div>
                 <div class="column is-four-fifths">
                     <div>
-                    <h2 class="title text-center">Featured Items</h2>
+                    <h2 class="title text-center">New Items</h2>
                     <div class="columns products">
                         ${renderedProducts}  
                     </div>
