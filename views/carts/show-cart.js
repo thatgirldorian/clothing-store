@@ -22,7 +22,7 @@ module.exports = ({ items }) => {
             <div class="remove">
                 <form method="POST" action="/cart/products/delete">
                     <input hidden value="${item.id}" name="itemId">
-                    <button class="button is-danger">                  
+                    <button class="button remove-btn">                  
                         <span class="icon is-small">
                         <i class="fas fa-times"></i>
                         </span>
@@ -44,12 +44,10 @@ module.exports = ({ items }) => {
                 <div>
                 ${renderedItems}
                 </div>
-                <div class="total message is-info">
-                <div class="message-header">
-                    Total
-                </div>
-                <h1 class="title">$${totalPrice}</h1>
-                <button class="button is-primary">Buy</button>
+                <div class="total message">
+                    <div class="message-header">Total</div>
+                    <h1 class="title total-price">$${totalPrice}</h1>
+                    <button class="button buy-btn">Buy</button>
                 </div>
             </div>
             <div class="column"></div>

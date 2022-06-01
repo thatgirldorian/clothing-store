@@ -1,5 +1,5 @@
     body {
-        --primary: #FF4949;
+        --primary: #0F2B57;
         --secondary: #9e4770;
         --white: #fbfbfb;
         --dark: #2e2532;
@@ -9,16 +9,65 @@
     p {
         color: black;
         text-decoration: underline;
-        text-decoration-color: #FF4949;
+        text-decoration-color: #0F2B57;
         margin-top: 40px;
         font-size: 16px;
         font-weight: bold;
         text-decoration-thickness: 3px;
     }
 
+    h1.title.total-price {
+        padding-top: 20px;
+    }
+
     .shop-title {
         padding-top: 20px;
     }
+
+    button.button.remove-btn, .delete-btn {
+        background-color: #dddddd;
+    }
+
+    button.button.is-link {
+        background-color: transparent;
+        color: #3273dc;
+        font-weight: bold;
+    }
+
+    i.fas.fa-times {
+        color: #7b7b7b;
+    }
+
+    div.message-header {
+        background-color: #dddddd;
+        color: black
+    }
+
+    div.total.message {
+        background-color: white;
+    }
+
+    button.buy-btn {
+        background-color: #3273dc;
+        padding: 20px 40px 20px 40px;
+        border-radius: 8px;
+        color: white;
+    }
+
+    a.button.new-product {
+        background-color: #3273dc;
+        padding: 10px 20px 10px 20px;
+        border-radius: 8px;
+        color: white;
+    }
+
+    button.edit-product, button.create-product {
+        background-color: #3273dc;
+        padding: 10px 20px 10px 20px;
+        border-radius: 8px;
+        color: white;
+    }
+    
     
     .navbar ul.social {
         display: flex;
@@ -77,7 +126,7 @@
     }
 
     .button.has-icon {
-        color: #541690;
+        color: #3273dc;
     }
     
     .product-card .card-footer {
