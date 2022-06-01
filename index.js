@@ -25,6 +25,7 @@ app.use(cartsRouter)
 
 
 //have the application listen to requests
-app.listen(3000, () => {
+app.listen(process.env.PORT || 3000), () => {
     console.log('listening...')
-})
+}
+
