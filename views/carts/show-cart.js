@@ -2,6 +2,12 @@
 const layout = require('../ui-layout')
 
 module.exports = ({ items }) => {
+    //render total price of products
+    let totalPrice = 0;
+    for (let item of items) {
+        totalPrice += item.quantity * item.product.price
+    }
+
     const renderedItems = items.map(item => {
         return `
             <div class="cart-item message">
@@ -41,7 +47,7 @@ module.exports = ({ items }) => {
                 <div class="message-header">
                     Total
                 </div>
-                <h1 class="title">$</h1>
+                <h1 class="title">$${totalPrice}</h1>
                 <button class="button is-primary">Buy</button>
                 </div>
             </div>

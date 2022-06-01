@@ -33,7 +33,7 @@ router.post('/cart/products', async(req, res) => {
         items: cart.items
     })
 
-    res.send('Product added to cart!')
+    res.redirect('/')
 })
 
 //this route will render the shopping cart and all the items in it via a get request
