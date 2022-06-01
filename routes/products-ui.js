@@ -1,7 +1,7 @@
 //require all of our needed packages and modules
 const express = require('express')
 const productsRepo = require('../repositories/products')
-const productsIndexTemplate = require('../views/products/ui-index')
+const productsIndexTemplate = require('../views/products/index')
 
 //create our router
 const router = express.Router()

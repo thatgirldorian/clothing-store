@@ -4,7 +4,7 @@ const multer  = require('multer')
 const { handleErrors, requireAuth } = require('./middlewares')
 const productsRepo = require('../../repositories/products')
 const newProductTemplate = require('../../views/admin/products/new-product')
-const allProductsTemplate = require('../../views/admin/products/products-index')
+const allProductsTemplate = require('../../views/admin/products/index')
 const editProductTemplate = require('../../views/admin/products/edit-product')
 const { requireTitle, requirePrice } = require('./validators')
 
