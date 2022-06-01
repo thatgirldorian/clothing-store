@@ -13,11 +13,9 @@ I used the package, Express-validator for form validation (email & password).
 
 <h3>Technology used:</h3>
 
-- HTML
-- CSS
+- HTML/CSS
 - JavaScript
 - GitHub
-- Netlify
 - Express JS
 - The Express-validator package (for validation)
 - The Cookie-session package (for cookie-based authentication)
