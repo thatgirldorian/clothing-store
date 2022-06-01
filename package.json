@@ -7,6 +7,10 @@
     "dev": "nodemon index.js",
     "start": "node index.js"
   },
+  "engines" : { 
+    "npm" : ">=8.10.0",
+    "node" : ">=14.17.6"
+  }, 
   "repository": {
     "type": "git",
     "url": "git+https://github.com/thatgirldorian/clothing-store.git"
