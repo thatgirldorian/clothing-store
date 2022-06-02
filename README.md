@@ -16,6 +16,7 @@ I used the package, Express-validator for form validation (email & password).
 - HTML/CSS
 - JavaScript
 - GitHub
+- Heroku
 - Express JS
 - The Express-validator package (for validation)
 - The Cookie-session package (for cookie-based authentication)
@@ -23,7 +24,7 @@ I used the package, Express-validator for form validation (email & password).
 - The Multer package (for handling file uploads)
 
 <h3>Link to site:</h3>
-https://oval-clothing.herokuapp.com/
+https://new-oval.herokuapp.com/
 
 <h3>Screenshots:</h3>
 <img width="1536" alt="Screen Shot 2022-06-02 at 12 52 58 AM" src="https://user-images.githubusercontent.com/40691059/171506627-985b8e92-e535-4753-80c2-2e83f0b4a78f.png">
