@@ -11,6 +11,7 @@ router.post('/cart/products', async(req, res) => {
     //figure if we have to add a cart for a customer
 
     let cart
+    let items = []
     if (!req.session.cartId) {
         //no cart?
         cart = await cartsRepo.create({ items: [] })
@@ -21,11 +22,14 @@ router.post('/cart/products', async(req, res) => {
         cart = await cartsRepo.getOne(req.session.cartId)
     }
     //increment existing item or add a new one to the items array
+    console.log(cart)
+    console.log(items)
+
     const existingItem = cart.items.find(item => item.id === req.body.productId)
     if (existingItem) {
         existingItem.quantity++
     } else {
-        cart.items.push({ id: req.body.productId, quantity: 1})
+        cart.items.push({ id: req.body.productId, quantity: 1 })
     }
 
     //update the customer's cart
