@@ -23,6 +23,10 @@ I used the package, Express-validator for form validation (email & password).
 - The Multer package (for handling file uploads)
 
 <h3>Link to site:</h3>
+https://oval-clothing.herokuapp.com/
+
+<h3>Screenshots:</h3>
+<img width="1536" alt="Screen Shot 2022-06-02 at 12 52 58 AM" src="https://user-images.githubusercontent.com/40691059/171506627-985b8e92-e535-4753-80c2-2e83f0b4a78f.png">
+<img width="1536" alt="Screen Shot 2022-06-02 at 12 52 36 AM" src="https://user-images.githubusercontent.com/40691059/171506637-0dfb0b5a-57c3-4690-afcb-61868f2785e1.png">
 
 
-<h3>Screenshot:</h3>
